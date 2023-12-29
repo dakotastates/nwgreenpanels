@@ -1,5 +1,5 @@
 import { useState } from 'react'
-// import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {login} from '../../store/user'
 
 const Login = props =>{
@@ -7,17 +7,16 @@ const Login = props =>{
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    // const dispatch = useDispatch() 
+    const dispatch = useDispatch() 
 
     const handleSubmit = e =>{
         e.preventDefault()
-        console.log('submit')
-        // const authObj = {
-        //     email: email, 
-        //     password: password
-        // }
-        // // console.log('AuthUser:', authObj)
-        // dispatch(login(authObj)) 
+        const authObj = {
+            email: email, 
+            password: password
+        }
+        console.log('AuthUser:', authObj)
+        dispatch(login(authObj)) 
     }
 
     return(

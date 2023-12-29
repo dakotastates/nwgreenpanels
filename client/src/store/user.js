@@ -73,6 +73,7 @@ export const login = (user) => async dispatch => {
   } 
 
     try {
+        
       // const res = await api.post('/api/auth/login/', { username, password })
       const res = await fetch("http://localhost:3000/api/v1/login", configObj);
       const json = await res.json(); 

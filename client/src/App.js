@@ -11,12 +11,12 @@ import './App.css';
 
 function App() {
   const { user } = useSelector(state => state.user)
-
   
+
   return (
     <>
     <Router>
-    {false ? 
+    {user ? 
       <div className='App'>
           <Routes>
             <Route path='/' element={<><HomePage/></>} />
