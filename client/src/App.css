@@ -35,12 +35,13 @@
   flex-direction: column;
   /* background-color: blue; */
   width: 100%;
-  
 }
 
 .right__container{
  /* background-color: yellow; */
+ position: relative;
  width: 30%;
  border-left: 2px double grey;
  height: 745px;
+ top: 56px;
 }
