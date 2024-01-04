@@ -27,7 +27,7 @@ const slice = createSlice({
     addPartsToCartSuccess: (state, action) => {
       // Array of number of used components (4 walls, 2 Truss)
       // Check if object is in array, if it is update existing
-            const part = state.partsList.find((part) => part.name === action.payload.name)
+      const part = state.partsList.find((part) => part.name === action.payload.name)
       
             if (part) {
               part.count = action.payload.count
@@ -38,7 +38,16 @@ const slice = createSlice({
 
     addCutToCartSuccess: (state, action) => {
       // Array of all the cuts required for a component (4 2x4's for 1 wall)
-      state.cutList = [...state.cutList, action.payload]
+      const part = state.cutList.find((part) => part.id === action.payload.id)
+      if (part) {
+        // let quantity = part.quantity + action.payload.quantity
+        part.quantity += action.payload.quantity
+        // part.count = action.payload.count
+      } else{
+        state.cutList = [...state.cutList, action.payload]
+      }
+
+      // state.cutList = [...state.cutList, action.payload]
   },
 
 

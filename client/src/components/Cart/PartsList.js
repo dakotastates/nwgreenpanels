@@ -5,10 +5,12 @@ const PartsList = ({partsList}) =>{
     
     return(
         <div className='cart__parts-list'>
-            Parts List
+            <div className='cart__list-label'>Parts List</div>
             {partsList.map((part, index)=>(
-                <div className='part'>
-                    {part.count}@{part.name}
+                <div className='cart__list-items'>
+                    <div>{part.count}@</div>
+                    <div>{part.name}</div>
+                    
                 </div>
             ))}
 

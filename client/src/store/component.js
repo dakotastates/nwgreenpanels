@@ -30,10 +30,16 @@ const data = [
     {id: 2, 
         name: 'Half Panel',
         parts: [
+          {id: 5,
+            quantity: 4,
+            dimensions: '25"',
+            name: 'wood'
+          },
           {id: 1,
             quantity: 2,
-            name: 'part 1'
-          }
+            dimensions: '93"',
+            name: 'Wood'
+          },
         ]
     },
     {id: 3, 
