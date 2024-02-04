@@ -87,6 +87,110 @@ const data = [
         }
       ]
     },
+    {id: 8, 
+      name: 'Panel2222',
+      parts: [
+        {id: 1,
+          quantity: 2,
+          dimensions: '93"',
+          name: 'Wood'
+        },
+        {id: 2,
+          quantity: 2,
+          dimensions: '48"',
+          name: 'Wood'
+        },
+        {id: 3,
+          quantity: 2,
+          dimensions: '45"',
+          name: 'Wood'
+        },
+        {id: 4,
+          quantity: 3,
+          dimensions: '30 3/4 T x 45 3/4 w"',
+          name: 'Glazing Insert'
+        },
+        
+      ]
+  },
+  {id: 9, 
+    name: 'Panel99999',
+    parts: [
+      {id: 1,
+        quantity: 2,
+        dimensions: '93"',
+        name: 'Wood'
+      },
+      {id: 2,
+        quantity: 2,
+        dimensions: '48"',
+        name: 'Wood'
+      },
+      {id: 3,
+        quantity: 2,
+        dimensions: '45"',
+        name: 'Wood'
+      },
+      {id: 4,
+        quantity: 3,
+        dimensions: '30 3/4 T x 45 3/4 w"',
+        name: 'Glazing Insert'
+      },
+      
+    ]
+},
+{id: 10, 
+  name: 'Panel0000',
+  parts: [
+    {id: 1,
+      quantity: 2,
+      dimensions: '93"',
+      name: 'Wood'
+    },
+    {id: 2,
+      quantity: 2,
+      dimensions: '48"',
+      name: 'Wood'
+    },
+    {id: 3,
+      quantity: 2,
+      dimensions: '45"',
+      name: 'Wood'
+    },
+    {id: 4,
+      quantity: 3,
+      dimensions: '30 3/4 T x 45 3/4 w"',
+      name: 'Glazing Insert'
+    },
+    
+  ]
+},
+{id: 11, 
+  name: 'Panel111111',
+  parts: [
+    {id: 1,
+      quantity: 2,
+      dimensions: '93"',
+      name: 'Wood'
+    },
+    {id: 2,
+      quantity: 2,
+      dimensions: '48"',
+      name: 'Wood'
+    },
+    {id: 3,
+      quantity: 2,
+      dimensions: '45"',
+      name: 'Wood'
+    },
+    {id: 4,
+      quantity: 3,
+      dimensions: '30 3/4 T x 45 3/4 w"',
+      name: 'Glazing Insert'
+    },
+    
+  ]
+},
 ]
 
 
@@ -106,6 +210,13 @@ const slice = createSlice({
 
     },
 
+    createComponentSuccess: (state, action) =>  {
+      // debugger
+      state.components = [...state.components, action.payload]
+      // state.components = action.payload;
+
+  },
+
 
 
 
@@ -114,12 +225,51 @@ const slice = createSlice({
 export default slice.reducer 
 
 // Actions
-const { getComponentSuccess } = slice.actions
+const { getComponentSuccess, createComponentSuccess } = slice.actions
 
 export const getComponents = () => async dispatch => {
+  const configObj = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${localStorage.token}`,
+    },
+  };
+
   try {
     // const res = await api.post('/api/auth/login/', { username, password })
-    dispatch(getComponentSuccess(data));
+    const res = await fetch("http://localhost:3000/api/v1/components")
+    const json = await res.json();
+    if (json.error) {
+      throw new Error(json.error + " " + json.message);
+    }
+    dispatch(getComponentSuccess(json));
+  } catch (e) {
+    return console.error(e.message);
+  }
+}
+
+export const createComponent = (component) => async dispatch => {
+  
+  const configObj = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${localStorage.token}`,
+    },
+    body: JSON.stringify({component}),
+  };
+  try {
+    // debugger
+    const res = await fetch("http://localhost:3000/api/v1/components", configObj);
+    const json = await res.json();
+    console.log(json)
+    if (json.error) {
+      throw new Error(json.error + " " + json.message);
+    }
+    dispatch(createComponentSuccess(json));
   } catch (e) {
     return console.error(e.message);
   }

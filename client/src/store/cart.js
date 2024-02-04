@@ -7,7 +7,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 // Slice
 const slice = createSlice({
-  name: 'component',
+  name: 'cart',
   initialState: {
     cart: [],
     cutList: [],
@@ -37,11 +37,12 @@ const slice = createSlice({
     },
 
     addCutToCartSuccess: (state, action) => {
+      
       // Array of all the cuts required for a component (4 2x4's for 1 wall)
       const part = state.cutList.find((part) => part.id === action.payload.id)
       if (part) {
         // let quantity = part.quantity + action.payload.quantity
-        part.quantity += action.payload.quantity
+        part.quantity += parseInt(action.payload.quantity)
         // part.count = action.payload.count
       } else{
         state.cutList = [...state.cutList, action.payload]

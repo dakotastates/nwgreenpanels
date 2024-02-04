@@ -3,7 +3,7 @@ import { Plus, Bell, Person } from 'react-bootstrap-icons';
 import './Navbar.css';
 import NavbarDropdown from './NavbarDropdown';
 
-const Navbar = () =>{
+const Navbar = ({handleOpenModal}) =>{
     const [toggleDropdownMenu, setToggleDropdownMenu] = useState(false)
     const [selectedDropdownMenu, setSelectedDropdownMenu] = useState(null)
 
@@ -20,7 +20,7 @@ const Navbar = () =>{
                 <div className='navbar__navigation-items'>
                     <ul>
                         <li></li>
-                        <li><Plus /></li>
+                        <li><Plus onClick={()=>handleOpenModal('create-project')}  /></li>
                         <li><Bell /></li>
                         <li><Person onClick={()=>handleToggleDropdownMenu('profile')} /></li>
                     </ul>

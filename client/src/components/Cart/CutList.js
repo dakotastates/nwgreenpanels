@@ -1,14 +1,14 @@
 
 const CutList = ({cutList}) =>{
-
+    
     return(
         <div className='cart__cut-list'>
             <div className='cart__list-label'>Cut List</div>
             {cutList?.map((cut, index)=>(
                 <div className='cart__list-items'>
                     <div>{cut.quantity}@</div>
-                    <div>{cut.dimensions}</div>
-                    <div>-{cut.name}</div>
+                    <div>{cut.part.dimensions}</div>
+                    <div>-{cut.part.name}</div>
                     
                 </div>
             ))}

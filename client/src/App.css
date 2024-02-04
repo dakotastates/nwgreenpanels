@@ -1,47 +1,117 @@
 .App {
   text-align: center;
+  /* height: 100%; */
+  
 }
 
-
-
-
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.main__container{
+  position: fixed;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  top: 56px;
+  width: 100%;
+  /* height: 100%; */
+  height: calc(100% - 56px);
+
 }
 
-.App-link {
-  color: #61dafb;
+.main__content{
+  position: relative;
+  color: black;
+  background-color: #DADADA;
+  width: 100%;
+  margin: 10px;
+  /* padding: 10px;  */
+  /* height: inherit; */
+  /* overflow: auto;  */
 }
+
+
 
 .home__container{
   /* background-color: pink; */
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  /* justify-content: space-between; */
 
   
 }
 
 .left__container{
+  /* position: relative; */
   display: flex;
   flex-direction: column;
   /* background-color: blue; */
   width: 100%;
+  flex: .7;
+  /* height: 100%; */
+  overflow: auto; 
 }
 
 .right__container{
- /* background-color: yellow; */
- position: relative;
- width: 30%;
+ /* background-color: pink; */
+ /* margin: 5px; */
+ /* position: fixed; */
+ width: 100%;
+ display: flex;
+ justify-content: space-between;
  border-left: 2px double grey;
- height: 745px;
- top: 56px;
+ padding: 10px;
+ flex: .3;
+ /* height: inherit%; */
+ /* height: calc(100% - 56px); */
+
+}
+
+.home__dashboard{
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  /* background-color: pink; */
+  /* flex-direction: column; */
+}
+
+.project__page-container{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.form__container{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.form__modal{
+  display: block; 
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
+
+.form__modal-content{
+  display: flex;
+  background-color: #fefefe;
+  margin: 15% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 10px;
+  width: 410px; 
+}
+
+.form__fields{
+  display: flex;
+  flex-direction: column;
+}
+
+.form__fields > input{
+  margin: 10px;
 }

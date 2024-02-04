@@ -1,16 +1,26 @@
 import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-// import {getComponents} from '../../store/component'
+import {saveProject} from '../../store/project'
 import './Cart.css'
 import PartsList from './PartsList'
 import CutList from './CutList'
 // import {addPartsToCart} from '../../store/cart'
 
-const Cart = () =>{
+const Cart = ({id}) =>{
 
     const { cart, cutList, partsList } = useSelector(state => state.cart)
+    console.log(cutList)
+    const dispatch = useDispatch() 
 
-    // const dispatch = useDispatch() 
+    const handleSave = e =>{
+        e.preventDefault()
+        let projectObj = {
+            id: id,
+            cutList: cutList, 
+            partslist: partsList
+        }
+        dispatch((saveProject(projectObj)))
+    }
 
 
     return(
@@ -19,14 +29,15 @@ const Cart = () =>{
                 Shopping Cart
             </div>
             <div className='cart__content-container'>
-                <div>
-                    <CutList cutList={cutList} />
-                </div>
-                <div>
-                    <PartsList partsList={partsList} />
-                </div>
+                <CutList cutList={cutList} /> 
+                <PartsList partsList={partsList} />
             </div>
-            <div className='cart__bottom'><button>Print</button></div>
+            <div className='cart__bottom'>
+                <button>Print</button>
+                <button>Clear</button>
+                <button onClick={handleSave}>Save</button>
+                <button>Cancel</button>
+            </div>
         </div>
     )
 

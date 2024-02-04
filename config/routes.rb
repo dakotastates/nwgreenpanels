@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   namespace :api do 
     namespace :v1 do
       resources :users
+      resources :projects
+      resources :components
+      resources :parts
+      resources :component_parts
       
       post '/login', to: 'sessions#login'
     end

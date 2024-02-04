@@ -1,0 +1,35 @@
+.taskbar__container{
+    background-color: grey;
+    margin-bottom: 20px;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.taskbar__icons{
+    /* margin: 10px; */
+    display: flex;
+    
+}
+
+.taskbar__icon{
+    background-color: lightgrey;
+    padding: 1px 5px 1px 5px;
+    margin: 5px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.taskbar__icon:hover{
+    background-color: darkgrey;
+}
+
+.searchbar__container{
+    margin: 5px;
+}
+
+.searchbar{
+    border-radius: 5px;
+}

@@ -1,16 +1,16 @@
 import {useDispatch, useSelector} from 'react-redux'
 import {addToCart, addPartsToCart, addCutToCart} from '../../store/cart'
 
-const Component = (props) =>{
+const Component = ({component, handleOpenModal}) =>{
 
     const dispatch = useDispatch() 
     let count = 0
-
+    
     const handleClick = (data)=>{
         count += 1
         // console.log(count, data.name)
         dispatch((addToCart(data))).then(()=>{
-            data.parts.map(part =>{
+            data.component_parts.map(part =>{
                 dispatch((addCutToCart(part))).then(()=>{
 
                 })
@@ -25,8 +25,17 @@ const Component = (props) =>{
     }
 
     return(
-        <div onClick={() => handleClick(props.component)}>
-            {props.component.name}
+        <div className='component__icon' >
+            <div className='component__icon-top'>
+                <div className='component__btn'>X</div>
+            </div>
+            <div className='component__icon-mid' onClick={() => handleClick(component)}>
+                <div>{component.name}</div>
+            </div>
+            <div className='component__icon-bottom'>
+                <div className='component__btn' >Copy</div>
+                <div className='component__btn' onClick={() =>handleOpenModal('edit-component', component)} >Edit</div>
+            </div>
         </div>
     )
 }
