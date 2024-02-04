@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux'
 // import { useParams  } from 'react-router-dom';
 
 
-const ModalContent = ({modalTarget, handleOpenModal}) =>{
+const ModalContent = ({modalTarget, handleOpenModal, modalData}) =>{
 
     const { project } = useSelector(state => state.project)
     
@@ -16,7 +16,7 @@ const ModalContent = ({modalTarget, handleOpenModal}) =>{
     } else if (modalTarget == 'create-component'){
         content = <NewComponent handleOpenModal={handleOpenModal} />
     } else if (modalTarget == 'edit-component'){
-        content = <NewComponent handleOpenModal={handleOpenModal} />
+        content = <NewComponent handleOpenModal={handleOpenModal} data={modalData} />
     }
 
     return(

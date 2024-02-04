@@ -225,6 +225,18 @@ const slice = createSlice({
 
     },
 
+    updateComponentSuccess: (state, action) =>  {
+      const component = state.components.find((component) => component.id === action.payload.id)
+  
+      if (component) {
+        
+        component.name = action.payload.name
+        component.description = action.payload.description
+        component.component_parts = action.payload.component_parts
+
+      }
+    },
+
 
 
 
@@ -233,7 +245,7 @@ const slice = createSlice({
 export default slice.reducer 
 
 // Actions
-const { getComponentSuccess, createComponentSuccess, deleteComponentSuccess } = slice.actions
+const { getComponentSuccess, createComponentSuccess, deleteComponentSuccess, updateComponentSuccess } = slice.actions
 
 export const getComponents = () => async dispatch => {
   const configObj = {
@@ -299,6 +311,32 @@ export const deleteComponent = (id) => async dispatch => {
     const json = await res.json();
     
     return dispatch(deleteComponentSuccess(json.component.id))
+  } catch (e) {
+    return console.error(e.message);
+  }
+}
+
+export const updateComponent = (component) => async dispatch => { 
+  console.log(component)
+  const configObj = {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${localStorage.token}`,
+    },
+    body: JSON.stringify({component}),
+  };
+  
+  try {
+    const res = await fetch(`http://localhost:3000/api/v1/components/${component.id}`, configObj);
+    const json = await res.json();
+    
+    if (json.error) {
+      
+      throw new Error(json.error + " " + json.message);
+    }
+    return dispatch(updateComponentSuccess(json))
   } catch (e) {
     return console.error(e.message);
   }

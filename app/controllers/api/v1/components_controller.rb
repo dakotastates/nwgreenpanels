@@ -30,7 +30,13 @@ class Api::V1::ComponentsController < ApplicationController
     end 
 
     def update 
-        unless @component.update(component_params)
+        # unless @component.update(component_params)
+        #     render json:{errors: @component.errors.full_messages}
+        # end
+
+        if @component.update(component_params)
+            render json: @component
+        else
             render json:{errors: @component.errors.full_messages}
         end
     end 
@@ -44,7 +50,7 @@ class Api::V1::ComponentsController < ApplicationController
 
     def component_params 
         params.require(:component).permit(:name, :description, 
-            component_parts_attributes: [:id, :quantity, _destroy,
+            component_parts_attributes: [:id, :quantity,
                 part_attributes: [:id, :name], 
                 dimension_attributes: [:id, :dimension]
             ]

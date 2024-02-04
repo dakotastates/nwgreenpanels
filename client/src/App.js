@@ -18,14 +18,16 @@ function App() {
 
   const [toggleModal, setToggleModal] = useState(false)
   const [modalTarget, setModalTarget] = useState(null)
+  const [modalData, setModalData] = useState(null)
 
 
   const refModal = useRef(null) 
 
-  const handleOpenModal = (id) =>{
+  const handleOpenModal = (id, data) =>{
       setModalTarget(id)
+      setModalData(data)
       setToggleModal(!toggleModal)
-
+ 
   }
 
   const closeOpenModal = e =>{
@@ -59,7 +61,7 @@ function App() {
                 <div className='form__modal'>
                     <div className="form__modal-content" ref={refModal}>
                         {/* <ModalContent /> */}
-                        <ModalContent modalTarget={modalTarget} handleOpenModal={handleOpenModal} />
+                        <ModalContent modalTarget={modalTarget} handleOpenModal={handleOpenModal} modalData={modalData} />
                     </div>
                 </div> 
             : null}

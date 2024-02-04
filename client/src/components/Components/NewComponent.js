@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {createComponent, updateComponent} from '../../store/component'
 
@@ -13,6 +13,22 @@ const NewComponent = ({handleOpenModal, data}) =>{
 
     const dispatch = useDispatch() 
     const { parts } = useSelector(state => state.part)
+
+    useEffect(()=>{
+        if (data){
+            setName(data.name)
+            setDescription(data.description)
+
+            const initialParts = data.component_parts.map((part) =>({
+                quantity: part.quantity, 
+                dimension_attributes: {dimension: part.dimension.dimension},
+                part_attributes: {name: part.part.name},
+            }))
+            
+            setFormValues(initialParts)
+        }
+
+    },[data])
 
     // console.log(parts)
     let handleChange = (i, e) => {
@@ -41,7 +57,7 @@ const NewComponent = ({handleOpenModal, data}) =>{
     }
     
     let addFormFields = () => {
-        setFormValues([...formValues, { quantity: "", dimensions_attributes: {dimension: ""}, parts_attributes: {name: ""}}])
+        setFormValues([...formValues, { quantity: "", dimension_attributes: {dimension: ""}, part_attributes: {name: ""}}])
     }
     
     let removeFormFields = (i) => {
@@ -54,6 +70,7 @@ const NewComponent = ({handleOpenModal, data}) =>{
     let label
     if(data){
         label = 'Edit '
+        
     } else{
         label = 'Create '
     }
@@ -67,10 +84,19 @@ const NewComponent = ({handleOpenModal, data}) =>{
             description: description, 
             component_parts_attributes: formValues
         }
+
+        if (data){
+            newObj.id = data.id
+            dispatch((updateComponent(newObj))).then(()=>{
+                handleOpenModal()
+            })
+        } else{
+            // console.log('create')
+            dispatch((createComponent(newObj))).then(()=>{
+                handleOpenModal()
+            })
+        }
         
-        dispatch((createComponent(newObj))).then(()=>{
-            handleOpenModal()
-        })
         
     }
 
@@ -81,7 +107,7 @@ const NewComponent = ({handleOpenModal, data}) =>{
     return (
         <div className='form__container'>
             
-            <div className='form__label'>{label}</div>
+            <div className='form__label'>{label} Component</div>
             <div className='form__fields'>
                 <input placeholder='Name' value={name} onChange={e=>setName(e.target.value)}/>
                 <textarea placeholder='Description' value={description} onChange={e=>setDescription(e.target.value)}/>
