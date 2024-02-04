@@ -3,7 +3,7 @@ class Component < ApplicationRecord
     belongs_to :user, optional: true
 
     # has_and_belongs_to_many :parts
-    has_many :component_parts
+    has_many :component_parts, dependent: :destroy
     has_many :parts, through: :component_parts
     has_many :dimensions, through: :component_parts
 

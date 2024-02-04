@@ -37,13 +37,14 @@ class Api::V1::ComponentsController < ApplicationController
 
     def destroy 
         @component.destroy
+        render json: {component: @component, result: :ok }
     end 
 
     private 
 
     def component_params 
         params.require(:component).permit(:name, :description, 
-            component_parts_attributes: [:id, :quantity, 
+            component_parts_attributes: [:id, :quantity, _destroy,
                 part_attributes: [:id, :name], 
                 dimension_attributes: [:id, :dimension]
             ]

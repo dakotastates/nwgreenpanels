@@ -215,7 +215,15 @@ const slice = createSlice({
       state.components = [...state.components, action.payload]
       // state.components = action.payload;
 
-  },
+    },
+
+    deleteComponentSuccess: (state, action) =>  {
+      
+      const components = state.components.filter((component) => component.id !== action.payload)
+  
+      state.components = components
+
+    },
 
 
 
@@ -225,7 +233,7 @@ const slice = createSlice({
 export default slice.reducer 
 
 // Actions
-const { getComponentSuccess, createComponentSuccess } = slice.actions
+const { getComponentSuccess, createComponentSuccess, deleteComponentSuccess } = slice.actions
 
 export const getComponents = () => async dispatch => {
   const configObj = {
@@ -270,6 +278,27 @@ export const createComponent = (component) => async dispatch => {
       throw new Error(json.error + " " + json.message);
     }
     dispatch(createComponentSuccess(json));
+  } catch (e) {
+    return console.error(e.message);
+  }
+}
+
+export const deleteComponent = (id) => async dispatch => {
+
+  const configObj = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${localStorage.token}`,
+    },
+  };
+  try {
+
+    const res = await fetch(`http://localhost:3000/api/v1/components/${id}`, configObj);
+    const json = await res.json();
+    
+    return dispatch(deleteComponentSuccess(json.component.id))
   } catch (e) {
     return console.error(e.message);
   }

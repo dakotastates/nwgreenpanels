@@ -1,5 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux'
 import {addToCart, addPartsToCart, addCutToCart} from '../../store/cart'
+import {deleteComponent} from '../../store/component'
 
 const Component = ({component, handleOpenModal}) =>{
 
@@ -24,10 +25,14 @@ const Component = ({component, handleOpenModal}) =>{
         })
     }
 
+    const handleDelete = () =>{
+        dispatch((deleteComponent(component.id)))
+    }
+
     return(
         <div className='component__icon' >
             <div className='component__icon-top'>
-                <div className='component__btn'>X</div>
+                <div className='component__btn' onClick={handleDelete}>X</div>
             </div>
             <div className='component__icon-mid' onClick={() => handleClick(component)}>
                 <div>{component.name}</div>
