@@ -32,6 +32,7 @@ const Component = ({component, handleOpenModal}) =>{
     return(
         <div className='component__icon' >
             <div className='component__icon-top'>
+                <div className='component__btn' onClick={() =>handleOpenModal('show-component', component)}>i</div>
                 <div className='component__btn' onClick={handleDelete}>X</div>
             </div>
             <div className='component__icon-mid' onClick={() => handleClick(component)}>

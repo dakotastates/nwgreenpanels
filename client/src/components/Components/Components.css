@@ -43,7 +43,8 @@
 
 .component__icon-top{
     display: flex;
-    align-self: flex-end;
+    justify-content: space-between;
+    /* align-self: flex-end; */
 }
 
 .component:hover .component__btn{

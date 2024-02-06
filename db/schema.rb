@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_04_000927) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_06_004403) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -42,6 +42,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_04_000927) do
     t.string "dimension"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.string "title"
+    t.string "note"
+    t.bigint "component_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["component_id"], name: "index_notes_on_component_id"
   end
 
   create_table "parts", force: :cascade do |t|
@@ -76,5 +85,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_04_000927) do
   add_foreign_key "component_parts", "dimensions"
   add_foreign_key "component_parts", "parts"
   add_foreign_key "components", "users"
+  add_foreign_key "notes", "components"
   add_foreign_key "projects", "users"
 end

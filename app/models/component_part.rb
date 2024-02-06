@@ -3,7 +3,7 @@ class ComponentPart < ApplicationRecord
   belongs_to :dimension
   belongs_to :part
 
-  accepts_nested_attributes_for :part, :dimension
+  accepts_nested_attributes_for :part, :dimension, allow_destroy: true
 
   # def part_attributes=(hash)
   #   self.part = Part.find_or_create_by(hash)

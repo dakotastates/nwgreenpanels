@@ -9,7 +9,7 @@ const NewComponent = ({handleOpenModal, data}) =>{
     const [description, setDescription] = useState('')
     const [imageUrl, setImageUrl] = useState('')
     const [componentNumber, setComponentNumber] = useState('')
-    const [formValues, setFormValues] = useState([{ quantity: "", dimension_attributes: {dimension: ""}, part_attributes: {name: ""} }])
+    const [formValues, setFormValues] = useState([{id: null, quantity: "", dimension_attributes: {dimension: ""}, part_attributes: {name: ""} }])
 
     const dispatch = useDispatch() 
     const { parts } = useSelector(state => state.part)
@@ -20,9 +20,10 @@ const NewComponent = ({handleOpenModal, data}) =>{
             setDescription(data.description)
 
             const initialParts = data.component_parts.map((part) =>({
+                id: part.id,
                 quantity: part.quantity, 
-                dimension_attributes: {dimension: part.dimension.dimension},
-                part_attributes: {name: part.part.name},
+                dimension_attributes: {id: part.dimension.id, dimension: part.dimension.dimension},
+                part_attributes: {id: part.part.id, name: part.part.name},
             }))
             
             setFormValues(initialParts)
@@ -57,12 +58,22 @@ const NewComponent = ({handleOpenModal, data}) =>{
     }
     
     let addFormFields = () => {
-        setFormValues([...formValues, { quantity: "", dimension_attributes: {dimension: ""}, part_attributes: {name: ""}}])
+        setFormValues([...formValues, { id: null, quantity: "", dimension_attributes: {dimension: ""}, part_attributes: {name: ""}}])
     }
     
     let removeFormFields = (i) => {
         let newFormValues = [...formValues];
+        // const removedField = newFormValues.splice(i, 1)[0] 
+        
+        // if(removedField.id){
+        //     // newFormValues.push({id: removedField.id, _destroy: true})
+        //     newFormValues.push({...removedField, _destroy: true})
+        // }
+        // debugger
+
         newFormValues.splice(i, 1);
+        
+        
         setFormValues(newFormValues)
     }
   

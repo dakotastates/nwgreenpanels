@@ -1,4 +1,5 @@
 import NewComponent from '../Components/NewComponent';
+import ShowComponent from '../Components/ShowComponent';
 import NewProject from '../Projects/NewProject';
 import {useDispatch, useSelector} from 'react-redux'
 // import { useParams  } from 'react-router-dom';
@@ -17,6 +18,8 @@ const ModalContent = ({modalTarget, handleOpenModal, modalData}) =>{
         content = <NewComponent handleOpenModal={handleOpenModal} />
     } else if (modalTarget == 'edit-component'){
         content = <NewComponent handleOpenModal={handleOpenModal} data={modalData} />
+    } else if (modalTarget == 'show-component'){
+        content = <ShowComponent handleOpenModal={handleOpenModal} data={modalData} />
     }
 
     return(
