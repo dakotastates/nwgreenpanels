@@ -9,7 +9,7 @@ import CutList from './CutList'
 const Cart = ({id}) =>{
 
     const { cart, cutList, partsList } = useSelector(state => state.cart)
-    console.log(cutList)
+    // console.log(cutList)
     const dispatch = useDispatch() 
 
     const handleSave = e =>{
@@ -26,7 +26,7 @@ const Cart = ({id}) =>{
     return(
         <div className='cart__container'>
             <div className='cart__heading'>
-                Shopping Cart
+                 Cart
             </div>
             <div className='cart__content-container'>
                 <CutList cutList={cutList} /> 

@@ -39,7 +39,8 @@ const slice = createSlice({
     addCutToCartSuccess: (state, action) => {
       
       // Array of all the cuts required for a component (4 2x4's for 1 wall)
-      const part = state.cutList.find((part) => part.id === action.payload.id)
+      const part = state.cutList.find((part) => (part.part.id === action.payload.part.id) && (part.dimension.id === action.payload.dimension.id))
+      // debugger
       if (part) {
         // let quantity = part.quantity + action.payload.quantity
         part.quantity += parseInt(action.payload.quantity)

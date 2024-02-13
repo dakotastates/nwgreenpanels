@@ -1,5 +1,5 @@
 class Api::V1::ProjectsController < ApplicationController
-    skip_before_action :authenticate_user, only: [:create]
+    # skip_before_action :authenticate_user, only: [:create]
     before_action :find_project, only: [:show, :update, :destroy]
 
     def index 
@@ -18,7 +18,7 @@ class Api::V1::ProjectsController < ApplicationController
     end 
 
     def create 
-        @project = Project.new(project_params)
+        @project = @current_user.projects.new(project_params)
         if @project.save 
             render json:{project: @project}, status: 201
         else 

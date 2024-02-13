@@ -1,11 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  note: MyString
   project: one
+  quantity: 1
+  dimension: one
+  part: one
 
 two:
-  title: MyString
-  note: MyString
   project: two
+  quantity: 1
+  dimension: two
+  part: two

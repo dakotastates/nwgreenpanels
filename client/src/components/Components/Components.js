@@ -5,11 +5,13 @@ import {getComponents} from '../../store/component'
 import Component from './Component';
 import Taskbar from '../Taskbar/Taskbar';
 import NewComponent from './NewComponent';
+import Notes from '../Notes/Notes';
 
 
 const Components = ({project, handleOpenModal}) =>{
     // const [toggleModal, setToggleModal] = useState(true)
     // const [modalTarget, setModalTarget] = useState(null)
+    const [toggleNotes, setToggleNotes] = useState(false)
 
     const dispatch = useDispatch() 
     const { components } = useSelector(state => state.component)
@@ -53,6 +55,9 @@ const Components = ({project, handleOpenModal}) =>{
                 </div>
             ))}
             </div>
+            <button className='notes__toogle-button' onClick={()=>setToggleNotes(!toggleNotes)}>{toggleNotes ? 'Close' : <>Open ({project.notes?.length})</>}</button>
+            {toggleNotes ? <div><Notes project={project} /></div> : null}
+            
             {/* {toggleModal? 
                 <div className='form__modal'>
                     <div className="form__modal-content" ref={refModal}>

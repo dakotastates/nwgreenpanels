@@ -3,7 +3,7 @@ class CreateNotes < ActiveRecord::Migration[7.0]
     create_table :notes do |t|
       t.string :title
       t.string :note
-      t.references :component, null: false, foreign_key: true
+      t.references :project, null: false, foreign_key: true, type: :uuid
 
       t.timestamps
     end

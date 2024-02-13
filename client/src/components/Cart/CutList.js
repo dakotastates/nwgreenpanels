@@ -7,7 +7,7 @@ const CutList = ({cutList}) =>{
             {cutList?.map((cut, index)=>(
                 <div className='cart__list-items'>
                     <div>{cut.quantity}@</div>
-                    <div>{cut.part.dimensions}</div>
+                    <div>{cut.dimension.dimension}</div>
                     <div>-{cut.part.name}</div>
                     
                 </div>

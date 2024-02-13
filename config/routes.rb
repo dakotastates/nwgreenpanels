@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resources :components
       resources :parts
       resources :component_parts
+      resources :notes
       
       post '/login', to: 'sessions#login'
     end

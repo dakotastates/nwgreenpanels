@@ -1,4 +1,5 @@
 class Api::V1::NotesController < ApplicationController
+    skip_before_action :authenticate_user, only: [:create]
     before_action :find_note, only: [:show, :update, :destroy]
 
     def index 
@@ -17,17 +18,15 @@ class Api::V1::NotesController < ApplicationController
     end 
 
     def create 
-\        @note = Note.new(note_params)
-
+        @note = Note.new(note_params)
         if @note.save 
-            render json: @note, status: 201
+            render json:{note: @note}, status: 201
         else 
             render json: { error: @note.errors.full_messages }, status: :not_acceptable
         end
     end 
 
     def update 
-
 
         if @note.update(note_params)
             render json: @note
@@ -38,12 +37,12 @@ class Api::V1::NotesController < ApplicationController
 
     def destroy 
         @note.destroy
-        render json: {note: @note, result: :ok }
     end 
+
     private 
 
     def note_params 
-        params.require(:note).permit(:id, :title, :note, :component_id)
+        params.require(:note).permit(:title, :note, :project_id)
     end 
 
     def find_note
