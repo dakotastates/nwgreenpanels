@@ -134,6 +134,18 @@ const slice = createSlice({
         state.projects = [...state.projects, action.payload]
     },
 
+
+    updateProjectSuccess: (state, action) => {
+      // state.projects = [...state.projects, action.payload]
+        const project = state.projects.find((project) => project.id === action.payload.id)
+  
+        if (project) {
+          
+          project.title = action.payload.title
+          project.description = action.payload.description
+        }
+    },
+
     saveProjectSuccess: (state, action) => {
         const project = state.projects.find((project) => project.id === action.payload.id)
         
@@ -159,7 +171,7 @@ const slice = createSlice({
 export default slice.reducer 
 
 // Actions
-const { getProjectsSuccess, saveProjectSuccess, getProjectSuccess, createProjectSuccess, removeProjectSuccess } = slice.actions
+const { getProjectsSuccess, saveProjectSuccess, getProjectSuccess, createProjectSuccess, removeProjectSuccess, updateProjectSuccess } = slice.actions
 
 export const getProjects = () => async dispatch => {
   const configObj = {
@@ -204,20 +216,46 @@ export const getProject = (id) => async dispatch => {
     }
   }
 
-  export const saveProject = (data) => async dispatch => {
+  export const saveProject = (project) => async dispatch => {
     
+    const configObj = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${localStorage.token}`,
+      },
+      body: JSON.stringify({project}),
+    };
+
     try {
+      const res = await fetch(`http://localhost:3000/api/v1/projects/${project.id}`, configObj);
+      const json = await res.json();
+      // console.log(json)
+      if (json.error) {
+        throw new Error(json.error + " " + json.message);
+      }
       // const res = await api.post('/api/auth/login/', { username, password })
-      dispatch(saveProjectSuccess(data));
+      dispatch(saveProjectSuccess(json));
     } catch (e) {
       return console.error(e.message);
     }
   }
 
-export const createProject = (data) => async dispatch => {
+export const createProject = (project) => async dispatch => {
+  const configObj = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${localStorage.token}`,
+    },
+    body: JSON.stringify({project}),
+  };
     try {
-      // const res = await api.post('/api/auth/login/', { username, password })
-      dispatch(createProjectSuccess(data));
+      const res = await fetch("http://localhost:3000/api/v1/projects", configObj);
+      const json = await res.json();
+      dispatch(createProjectSuccess(json));
     } catch (e) {
       return console.error(e.message);
     }
@@ -230,4 +268,30 @@ export const removeProject = () => async dispatch => {
     } catch (e) {
       return console.error(e.message);
     }
+}
+
+export const updateProject = (project) => async dispatch => { 
+  // console.log(component)
+  const configObj = {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${localStorage.token}`,
+    },
+    body: JSON.stringify({project}),
+  };
+  
+  try {
+    const res = await fetch(`http://localhost:3000/api/v1/projects/${project.id}`, configObj);
+    const json = await res.json();
+    // debugger
+    if (json.error) {
+      
+      throw new Error(json.error + " " + json.message);
+    }
+    return dispatch(updateProjectSuccess(json))
+  } catch (e) {
+    return console.error(e.message);
+  }
 }

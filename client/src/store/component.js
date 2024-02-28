@@ -201,7 +201,7 @@ const data = [
 const slice = createSlice({
   name: 'component',
   initialState: {
-    components: []
+    components: [], 
   },
   reducers: {
 
@@ -237,6 +237,18 @@ const slice = createSlice({
       }
     },
 
+    countComponentSuccess: (state, action) =>  {
+      
+      const component = state.components.find((component) => component.id === action.payload.component.id)
+      // console.log(action.payload.component.id)
+      if (component) {
+        
+        component.count = action.payload.count
+        // console.log('countC',component.count)
+        
+      }
+    },
+
 
 
 
@@ -245,7 +257,7 @@ const slice = createSlice({
 export default slice.reducer 
 
 // Actions
-const { getComponentSuccess, createComponentSuccess, deleteComponentSuccess, updateComponentSuccess } = slice.actions
+const { getComponentSuccess, createComponentSuccess, deleteComponentSuccess, updateComponentSuccess, countComponentSuccess } = slice.actions
 
 export const getComponents = () => async dispatch => {
   const configObj = {
@@ -285,7 +297,7 @@ export const createComponent = (component) => async dispatch => {
     // debugger
     const res = await fetch("http://localhost:3000/api/v1/components", configObj);
     const json = await res.json();
-    console.log(json)
+    // console.log(json)
     if (json.error) {
       throw new Error(json.error + " " + json.message);
     }
@@ -337,6 +349,17 @@ export const updateComponent = (component) => async dispatch => {
       throw new Error(json.error + " " + json.message);
     }
     return dispatch(updateComponentSuccess(json))
+  } catch (e) {
+    return console.error(e.message);
+  }
+}
+
+
+export const countComponent = (data) => async dispatch => {
+  
+  try {
+    // const res = await api.post('/api/auth/login/', { username, password })
+    dispatch(countComponentSuccess(data));
   } catch (e) {
     return console.error(e.message);
   }

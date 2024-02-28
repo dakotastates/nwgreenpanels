@@ -20,14 +20,21 @@ class Api::V1::ProjectsController < ApplicationController
     def create 
         @project = @current_user.projects.new(project_params)
         if @project.save 
-            render json:{project: @project}, status: 201
+            render json: @project, status: 201
         else 
             render json: { error: @project.errors.full_messages }, status: :not_acceptable
         end
     end 
 
     def update 
-        unless @project.update(project_params)
+        # unless @project.update(project_params)
+        #     render json:{errors: @project.errors.full_messages}
+        # end
+        # binding.break
+        if @project.update(project_params)
+            # binding.break
+            render json: @project
+        else
             render json:{errors: @project.errors.full_messages}
         end
     end 
@@ -39,7 +46,7 @@ class Api::V1::ProjectsController < ApplicationController
     private 
 
     def project_params 
-        params.permit(:title, :description, :uuid)
+        params.require(:project).permit(:id, :title, :description, :uuid, cut_lists_attributes: [:id, :quantity, :dimension_id, :part_id])
     end 
 
     def find_project 

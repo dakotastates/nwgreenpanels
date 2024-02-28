@@ -1,20 +1,32 @@
+import {useEffect} from 'react'
 
 const CutList = ({cutList}) =>{
     
-    return(
-        <div className='cart__cut-list'>
-            <div className='cart__list-label'>Cut List</div>
-            {cutList?.map((cut, index)=>(
-                <div className='cart__list-items'>
-                    <div>{cut.quantity}@</div>
-                    <div>{cut.dimension.dimension}</div>
-                    <div>-{cut.part.name}</div>
-                    
-                </div>
-            ))}
+    // useEffect(()=>{
 
-        </div>
-    )
+    // },[cutList])
+
+    
+        // debugger
+        return(
+            <div className='cart__cut-list'>
+                <div className='cart__list-label'>Cut List</div>
+                {cutList?.map((cut, index)=>(
+                    <div className='cart__list-items'>
+                        
+                        <div>{cut.quantity}@</div>
+                        <div>{cut.dimension.dimension}</div>
+                        <div>-{cut.part.name}</div>
+                        
+                    </div>
+                ))}
+    
+            </div>
+        )
+
+
+    
+
 }
 
 export default CutList

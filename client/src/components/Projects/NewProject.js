@@ -1,11 +1,11 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import {useDispatch} from 'react-redux'
 import {createProject, updateProject} from '../../store/project'
 import { useNavigate } from 'react-router-dom';
 
 
 const NewProject = ({handleOpenModal, data}) =>{
-    const [title, setTitle] = useState('')
+    const [title, setTitle] = useState('') 
     const [description, setDescription] = useState('')
 
     const dispatch = useDispatch() 
@@ -18,19 +18,38 @@ const NewProject = ({handleOpenModal, data}) =>{
         label = 'Create Project'
     }
 
+    useEffect(()=>{
+        if (data){
+            setTitle(data.title)
+            setDescription(data.description)
+        }
+
+    },[data])
 
 
     const handleSubmit = e =>{
         e.preventDefault()
+
+
         
         let newObj = {
             title: title,
             description: description
         }
-        dispatch((createProject(newObj))).then(()=>{
-            // navigate(`/projects/${newObj.uuid}`)
-            handleOpenModal()
-        })
+
+        if (data){
+            newObj.id = data.id
+            dispatch((updateProject(newObj))).then(()=>{
+                handleOpenModal()
+            })
+        } else{
+            // console.log('create')
+            dispatch((createProject(newObj))).then(()=>{
+                // navigate(`/projects/${newObj.uuid}`)
+                handleOpenModal()
+            })
+        }
+
         
     }
 

@@ -11,7 +11,7 @@ const slice = createSlice({
   initialState: {
     cart: [],
     cutList: [],
-    partsList: []
+    partsList: [], 
   },
   reducers: {
 
@@ -28,8 +28,8 @@ const slice = createSlice({
       // Array of number of used components (4 walls, 2 Truss)
       // Check if object is in array, if it is update existing
       const part = state.partsList.find((part) => part.name === action.payload.name)
-      
             if (part) {
+              
               part.count = action.payload.count
             } else{
               state.partsList = [...state.partsList, action.payload]
@@ -37,7 +37,7 @@ const slice = createSlice({
     },
 
     addCutToCartSuccess: (state, action) => {
-      
+      // console.log(action.payload)
       // Array of all the cuts required for a component (4 2x4's for 1 wall)
       const part = state.cutList.find((part) => (part.part.id === action.payload.part.id) && (part.dimension.id === action.payload.dimension.id))
       // debugger
@@ -50,21 +50,62 @@ const slice = createSlice({
       }
 
       // state.cutList = [...state.cutList, action.payload]
-  },
+    },
+
+    updateCutinCartSuccess: (state, action) => {
+      const part = state.cutList.find((part) => (part.part.id === action.payload.part.id) && (part.dimension.id === action.payload.dimension.id))
+      // debugger
+      if (part) {
+        // let quantity = part.quantity + action.payload.quantity
+        part.quantity -= parseInt(action.payload.quantity)
+        // part.count = action.payload.count
+      } 
+      // const cuts = state.cutList.filter((cut) => cut.id !== action.payload)
+      // state.cutList = cuts
+
+    },
 
 
-    removeFromCartSuccess: (state, action) => {
-        const cart = state.cart.filter((component) => component.id !== action.payload)
-  
-        state.cart = cart
-    }
+    setCartSuccess: (state, action) => {
+          state.cutList = action.payload.cut_lists
+    },
+
+
+    removeComponentFromCartSuccess: (state, action) => {
+      // Remove component from Parts List
+      const components = state.partsList.filter((part) => part.component.id !== action.payload.component.id)
+      state.partsList = components
+    }, 
+
+    removeCutFromCartSuccess: (state, action) => {
+      // Remove cuts from cutList
+      // check if the cut matches the payload 
+      const part = state.cutList.find((part) => (part.part.id === action.payload.part.id) && (part.dimension.id === action.payload.dimension.id))
+      // console.log(action.payload)
+      if(part){
+        if(part.quantity == action.payload.quantity){
+          const cuts = state.cutList.filter((cut) => (cut.part.id != part.part.id))
+          // console.log('cuts', part.id)
+          state.cutList = cuts
+        } else{
+          
+          part.quantity -= parseInt(action.payload.quantity)
+          // console.log('not same', part.quantity)
+        }
+      }
+      // const cuts = state.cutList.filter((cut) => (cut.part.id !== action.payload.part.id) && (cut.dimension.id !== action.payload.dimension.id))
+      
+      // state.cutList = cuts
+    }, 
+
+
 
   },
 }); 
 export default slice.reducer 
 
 // Actions
-const { getCartSuccess, addToCartSuccess, addPartsToCartSuccess, addCutToCartSuccess, removeFromCartSuccess } = slice.actions
+const { getCartSuccess, addToCartSuccess, addPartsToCartSuccess, addCutToCartSuccess, removeComponentFromCartSuccess, setCartSuccess, updateCutinCartSuccess, removeCutFromCartSuccess } = slice.actions
 
 export const getCart = () => async dispatch => {
   try {
@@ -92,6 +133,7 @@ export const addToCart = (data) => async dispatch => {
       return console.error(e.message);
     }
   }
+  
 
   export const addCutToCart = (data) => async dispatch => {
     try {
@@ -102,11 +144,53 @@ export const addToCart = (data) => async dispatch => {
     }
   }
 
-export const removeToCart = () => async dispatch => {
+  export const updateCutInCart = (data) => async dispatch => {
     try {
       // const res = await api.post('/api/auth/login/', { username, password })
-      dispatch(removeFromCartSuccess());
+      dispatch(updateCutinCartSuccess(data));
     } catch (e) {
       return console.error(e.message);
     }
+  }
+
+  export const removeComponentFromCart = (data) => async dispatch => {
+      try {
+        // const res = await api.post('/api/auth/login/', { username, password })
+        dispatch(removeComponentFromCartSuccess(data));
+      } catch (e) {
+        return console.error(e.message);
+      }
+  }
+
+  export const removeCutFromCart = (data) => async dispatch => {
+    try {
+      // const res = await api.post('/api/auth/login/', { username, password })
+      dispatch(removeCutFromCartSuccess(data));
+    } catch (e) {
+      return console.error(e.message);
+    }
+}
+
+
+
+export const setCart = (id) => async dispatch => {
+  // debugger
+  // console.log(list)
+  const configObj = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.token}`,
+    },
+  };
+
+  try {
+    const res = await fetch(`http://localhost:3000/api/v1/projects/${id}`, configObj);    const json = await res.json();
+    if (json.error) {
+      // debugger
+      throw new Error(json.error + " " + json.message);
+    }
+    dispatch(setCartSuccess(json));
+  } catch (e) {
+    return console.error(e.message);
+  }
 }

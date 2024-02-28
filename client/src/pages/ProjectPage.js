@@ -3,6 +3,7 @@ import Components from '../components/Components/Components';
 import Cart from '../components/Cart/Cart';
 import {useDispatch, useSelector} from 'react-redux'
 import {getProject} from '../store/project'
+// import {setCart} from '../store/cart'
 import { useParams  } from 'react-router-dom';
 
 const ProjectPage = ({handleOpenModal}) =>{

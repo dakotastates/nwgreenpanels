@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_06_032823) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_13_053358) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -38,6 +38,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_06_032823) do
     t.index ["user_id"], name: "index_components_on_user_id"
   end
 
+  create_table "cut_lists", force: :cascade do |t|
+    t.uuid "project_id", null: false
+    t.integer "quantity"
+    t.bigint "dimension_id", null: false
+    t.bigint "part_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dimension_id"], name: "index_cut_lists_on_dimension_id"
+    t.index ["part_id"], name: "index_cut_lists_on_part_id"
+    t.index ["project_id"], name: "index_cut_lists_on_project_id"
+  end
+
   create_table "dimensions", force: :cascade do |t|
     t.string "dimension"
     t.datetime "created_at", null: false
@@ -51,6 +63,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_06_032823) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_notes_on_project_id"
+  end
+
+  create_table "part_lists", force: :cascade do |t|
+    t.uuid "project_id", null: false
+    t.integer "quantity"
+    t.bigint "component_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["component_id"], name: "index_part_lists_on_component_id"
+    t.index ["project_id"], name: "index_part_lists_on_project_id"
   end
 
   create_table "parts", force: :cascade do |t|
@@ -85,6 +107,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_06_032823) do
   add_foreign_key "component_parts", "dimensions"
   add_foreign_key "component_parts", "parts"
   add_foreign_key "components", "users"
+  add_foreign_key "cut_lists", "dimensions"
+  add_foreign_key "cut_lists", "parts"
+  add_foreign_key "cut_lists", "projects"
   add_foreign_key "notes", "projects"
+  add_foreign_key "part_lists", "components"
+  add_foreign_key "part_lists", "projects"
   add_foreign_key "projects", "users"
 end
