@@ -1,55 +1,57 @@
 import {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {saveProject} from '../../store/project'
-import {setCart} from '../../store/cart'
+import {addComponentToCart, addCutToCart, setCart} from '../../store/cart'
+import {countComponent} from '../../store/component'
 import './Cart.css'
 import PartsList from './PartsList'
 import CutList from './CutList'
-// import {addPartsToCart} from '../../store/cart'
+import component from '../../store/component'
 
 const Cart = ({id}) =>{
     const [cut, setCut] = useState([{id: null, quantity: '', dimension_id: '', part_id: ''}])
-    // const [cl, setCl] = useState([{id: null, quantity: '', component_id: ''}])
+    const [pl, setPl] = useState([{id: null, quantity: '', component_id: ''}])
     const { cart, cutList, partsList } = useSelector(state => state.cart)
-    // console.log(cutList)
+    const { project } = useSelector(state => state.project)
+    const { components} = useSelector(state => state.component)
     const dispatch = useDispatch() 
 
     useEffect(()=>{
-        const initialCuts = cutList.map((cut) =>({
-            
+        const initialCuts = cutList.map((cut) =>({  
+            id: cut.id,
             quantity: cut.quantity, 
             dimension_id: cut.dimension.id,
-            part_id: cut.part.id
+            part_id: cut.part.id, 
+            _destroy: cut._destroy
         }))
         setCut(initialCuts)
     },[cutList])
 
 
     useEffect(()=>{
+        // get the cart data from project
         dispatch((setCart(id)))
-    },[])
+    },[project])
 
-    // useEffect(()=>{
-    //     partsList.map((part)=>{
-    //         // let partObj={
-    //         //     id: part.id, 
-    //         //     quantity: part.quantity, 
-    //         //     component_id: part.component.id
-    //         // }
-    //         // setCl(partObj)
-    //         console.log(part)
-    //     })
-    // },[partsList])
+
+    useEffect(()=>{
+        const initialParts = partsList.map((part)=>({
+                id: part.id, 
+                quantity: part.quantity, 
+                component_id: part.component.id, 
+                _destroy: part._destroy
+        }))
+        setPl(initialParts)
+    },[partsList])
 
     const handleSave = e =>{
         e.preventDefault() 
         let projectObj = {
             id: id,
             cut_lists_attributes: cut, 
-            // part_lists_attributes: partsList
+            part_lists_attributes: pl, 
         }
-        // debugger
-        // console.log(cl)
+        // console.log(projectObj)
         dispatch((saveProject(projectObj)))
     }
 
@@ -75,11 +77,3 @@ const Cart = ({id}) =>{
 }
 
 export default Cart; 
-
-
-// cut list
-// {cart?.map((component,index)=> (
-//     <div key={component.id}>
-//         {component.name}
-//     </div> 
-// ))}

@@ -11,7 +11,7 @@ const CutList = ({cutList}) =>{
         return(
             <div className='cart__cut-list'>
                 <div className='cart__list-label'>Cut List</div>
-                {cutList?.map((cut, index)=>(
+                {cutList.filter((cut) => !cut._destroy).map((cut, index)=>(
                     <div className='cart__list-items'>
                         
                         <div>{cut.quantity}@</div>

@@ -46,7 +46,10 @@ class Api::V1::ProjectsController < ApplicationController
     private 
 
     def project_params 
-        params.require(:project).permit(:id, :title, :description, :uuid, cut_lists_attributes: [:id, :quantity, :dimension_id, :part_id])
+        params.require(:project).permit(:id, :title, :description, :uuid, 
+            cut_lists_attributes: [:id, :quantity, :dimension_id, :part_id, :_destroy],
+            part_lists_attributes: [:id, :quantity, :component_id, :_destroy]
+        )
     end 
 
     def find_project 

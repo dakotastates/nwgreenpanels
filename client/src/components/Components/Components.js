@@ -55,7 +55,7 @@ const Components = ({project, handleOpenModal}) =>{
                 </div>
             ))}
             </div>
-            <button className='notes__toogle-button' onClick={()=>setToggleNotes(!toggleNotes)}>{toggleNotes ? 'Close' : <>Open ({project.notes?.length})</>}</button>
+            <button className='notes__toogle-button' onClick={()=>setToggleNotes(!toggleNotes)}>{toggleNotes ? 'Close' : <>Note ({project.notes?.length})</>}</button>
             {toggleNotes ? <div><Notes project={project} /></div> : null}
             
             {/* {toggleModal? 

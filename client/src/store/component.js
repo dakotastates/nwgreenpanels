@@ -238,13 +238,13 @@ const slice = createSlice({
     },
 
     countComponentSuccess: (state, action) =>  {
-      
+      // console.log('action', action.payload )
       const component = state.components.find((component) => component.id === action.payload.component.id)
       // console.log(action.payload.component.id)
       if (component) {
         
-        component.count = action.payload.count
-        // console.log('countC',component.count)
+        component.quantity = action.payload.quantity
+        // console.log('countC',component.quantity)
         
       }
     },
@@ -356,7 +356,7 @@ export const updateComponent = (component) => async dispatch => {
 
 
 export const countComponent = (data) => async dispatch => {
-  
+  // console.log(data)
   try {
     // const res = await api.post('/api/auth/login/', { username, password })
     dispatch(countComponentSuccess(data));
