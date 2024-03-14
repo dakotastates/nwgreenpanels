@@ -48,15 +48,18 @@ const Components = ({project, handleOpenModal}) =>{
     return(
         <div className='components__container'> 
             <Taskbar project={project} handleOpenModal={handleOpenModal} />
-            <div className='component__container'>
-            {components.map((component) =>(
-                <div className='component' key={component.id}>
-                    <Component component={component} handleOpenModal={handleOpenModal} />
-                </div>
-            ))}
+            <div className='component__container'> 
+                {components.map((component) =>(
+                    <div className='component' key={component.id}>
+                        <Component component={component} handleOpenModal={handleOpenModal} />
+                    </div>
+                ))}
             </div>
-            <button className='notes__toogle-button' onClick={()=>setToggleNotes(!toggleNotes)}>{toggleNotes ? 'Close' : <>Note ({project.notes?.length})</>}</button>
-            {toggleNotes ? <div><Notes project={project} /></div> : null}
+            <div className='notes__container-comp'>
+                <button className='notes__toogle-button' onClick={()=>setToggleNotes(!toggleNotes)}>{toggleNotes ? 'Close' : <>Notes ({project.notes?.length})</>}</button>
+                {toggleNotes ? <div><Notes project={project} /></div> : null}
+            </div>
+
             
             {/* {toggleModal? 
                 <div className='form__modal'>

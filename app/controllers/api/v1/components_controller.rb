@@ -49,7 +49,7 @@ class Api::V1::ComponentsController < ApplicationController
     private 
 
     def component_params 
-        params.require(:component).permit(:id, :name, :description, :_destroy, 
+        params.require(:component).permit(:id, :name, :description, :component_number, :image_url, :_destroy, 
             component_parts_attributes: [:id, :quantity, :_destroy,
                 part_attributes: [:id, :name], 
                 dimension_attributes: [:id, :dimension]

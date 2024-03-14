@@ -16,4 +16,5 @@ class Component < ApplicationRecord
 
 
     validates :name, presence: true, uniqueness: true
+    validates :component_number, uniqueness: true
 end

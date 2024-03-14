@@ -23,9 +23,9 @@ const ModalContent = ({modalTarget, handleOpenModal, modalData}) =>{
     }
 
     return(
-        <div>
+        <>
             {content}
-        </div>
+        </>
     )
 }
 
