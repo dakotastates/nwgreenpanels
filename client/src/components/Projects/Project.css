@@ -1,5 +1,25 @@
 .project__container{
-    border: 1px solid;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid;
     padding: 5px;
     margin: 5px;
+    background-color: rgb(152, 148, 148);
+    border-radius: 5px;
+    font-size: 15px;
+    width: 80%;
+    cursor: pointer;
+}
+
+.project__buttons{
+    /* background-color: pink; */
+    width: 20%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.project{
+    /* background-color: pink; */
+    width: 100%;
+    display: flex;
 }

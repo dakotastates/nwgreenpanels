@@ -41,6 +41,7 @@ class Api::V1::ProjectsController < ApplicationController
 
     def destroy 
         @project.destroy
+        render json: {project: @project, result: :ok }
     end 
 
     private 

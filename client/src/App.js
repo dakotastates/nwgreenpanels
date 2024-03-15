@@ -53,8 +53,8 @@ function App() {
             <div className="main__content">
             <Routes>
               <Route path='/projects/:id' element={<><ProjectPage handleOpenModal={handleOpenModal}/></>} />
-              <Route path='/projects' element={<><ProjectsPage/></>} />
-              <Route path='/' element={<><ProjectsPage/></>} />
+              <Route path='/projects' element={<><ProjectsPage handleOpenModal={handleOpenModal}/></>} />
+              <Route path='/' element={<><ProjectsPage handleOpenModal={handleOpenModal}/></>} />
               <Route path="*" element={<><NotFound/></>}/>
             </Routes>
             {toggleModal? 

@@ -37,30 +37,71 @@
   
 }
 
+.projects__container{
+  display: flex;
+  flex-direction: column;
+  /* background-color: green; */
+  height: 100%;
+}
+
+.projects__main{
+  display: flex;
+  padding: 10px;
+}
+
+.projects__left{
+  width: 100%;
+  /* background-color: pink; */
+  /* border-right: .5px solid; */
+}
+
+.projects__right{
+  width: 100%;
+  /* background-color: red; */
+}
+
+.projects__nav{
+  height: 30px;
+  background-color: #888;
+  width: 100%;
+  border: 1px solid;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.projects__image{
+  vertical-align: middle;
+  width: 600px;
+  height: 600px;
+  margin-bottom: 8px;
+  object-fit: cover;
+}
+
 .left__container{
   /* position: relative; */
   display: flex;
   flex-direction: column;
   /* background-color: blue; */
-  width: 100%;
-  flex: .7;
+  width: 75%;
+  /* flex: .7; */
   /* height: 100%; */
-  overflow: auto; 
+  /* overflow: auto;  */
 }
 
 .right__container{
- /* background-color: pink; */
+ /* background-color: green; */
  /* margin: 5px; */
  /* position: fixed; */
- width: 100%;
+ width: 25%;
  display: flex;
  justify-content: space-between;
  border-left: 2px double grey;
  padding: 10px;
- flex: .3;
+ /* flex: .3; */
  /* resize: both; */
  /* overflow: auto; */
- height: 100%;
+ /* height: 100%; */
  /* height: inherit%; */
  /* height: calc(100% - 56px); */
 

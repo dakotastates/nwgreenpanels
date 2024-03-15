@@ -1,6 +1,6 @@
 .notes__container{
     border-top: 1px solid;
-    height: 200px;
+    height: 20%;
     display: flex;
     flex-direction: column;
     /* align-items: center; */
@@ -26,6 +26,8 @@
     width: 100%;
     background-color: white;
     border-radius: 5px;
+    overflow: auto;
+    height: 100%;
 }
 .notes__right{
     width: 100%;
@@ -45,7 +47,8 @@
     margin: 5px;
     background-color: antiquewhite;
     border: .5px solid;
-    border-radius: 5px;
+    border-radius: 5px; 
+
     /* padding: 5px; */
     
 }

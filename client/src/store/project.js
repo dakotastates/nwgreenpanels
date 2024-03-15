@@ -160,8 +160,9 @@ const slice = createSlice({
 
 
 
-    removeProjectSuccess: (state, action) => {
-        const projects = state.project.filter((project) => project.id !== action.payload)
+    deleteProjectSuccess: (state, action) => {
+      // console.log('delete', action.payload)
+        const projects = state.projects.filter((project) => project.id !== action.payload)
   
         state.projects = projects
     }
@@ -171,7 +172,7 @@ const slice = createSlice({
 export default slice.reducer 
 
 // Actions
-const { getProjectsSuccess, saveProjectSuccess, getProjectSuccess, createProjectSuccess, removeProjectSuccess, updateProjectSuccess } = slice.actions
+const { getProjectsSuccess, saveProjectSuccess, getProjectSuccess, createProjectSuccess, deleteProjectSuccess, updateProjectSuccess } = slice.actions
 
 export const getProjects = () => async dispatch => {
   const configObj = {
@@ -261,10 +262,19 @@ export const createProject = (project) => async dispatch => {
     }
   }
 
-export const removeProject = () => async dispatch => {
+export const deleteProject = (id) => async dispatch => {
+  const configObj = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${localStorage.token}`,
+    },
+  };
     try {
-      // const res = await api.post('/api/auth/login/', { username, password })
-      dispatch(removeProjectSuccess());
+      const res = await fetch(`http://localhost:3000/api/v1/projects/${id}`, configObj);
+      const json = await res.json();
+      dispatch(deleteProjectSuccess(json.project.id));
     } catch (e) {
       return console.error(e.message);
     }
