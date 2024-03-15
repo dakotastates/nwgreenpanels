@@ -28,6 +28,12 @@ class Api::V1::NotesController < ApplicationController
 
     def update 
 
+        # if @note.update(note_params)
+        #     render json: @note
+        # else
+        #     render json:{errors: @note.errors.full_messages}
+        # end
+
         if @note.update(note_params)
             render json: @note
         else
@@ -37,6 +43,7 @@ class Api::V1::NotesController < ApplicationController
 
     def destroy 
         @note.destroy
+        render json: {note: @note, result: :ok }
     end 
 
     private 

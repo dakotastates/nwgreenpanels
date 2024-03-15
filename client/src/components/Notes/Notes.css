@@ -5,6 +5,33 @@
     flex-direction: column;
     /* align-items: center; */
     width: 100%;
+    /* background-color: pink; */
+}
+
+.notes__nav{
+    background-color: rgba(178, 173, 173, 0.8);
+    display: flex;
+    margin: 5px;
+    border: 1px solid;
+    border-radius: 5px;
+    justify-content: space-between;
+}
+
+.notes{
+    display: flex;
+    height: 100%;
+}
+
+.notes__left{
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+}
+.notes__right{
+    width: 100%;
+    /* height: 100%; */
+    border: 1px solid;
+    margin: 10px;
 }
 
 .notes_label{
@@ -13,17 +40,29 @@
 
 .note__container{
     display: flex;
-    width: 100%;
-    justify-content: space-around;
-    margin: 10px;
+    /* width: 100%; */
+    justify-content: space-between;
+    margin: 5px;
+    background-color: antiquewhite;
+    border: .5px solid;
+    border-radius: 5px;
+    /* padding: 5px; */
     
 }
 
 .note{
-
+ margin: 5px;
 }
 
 .note__buttons{
     display: flex;
+    width: 25%;
+    justify-content: space-around;
+    align-items: center;
+    
+}
 
+.notes__display{
+    display: flex;
+    flex-direction: column;
 }

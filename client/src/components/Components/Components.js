@@ -15,6 +15,7 @@ const Components = ({project, handleOpenModal}) =>{
 
     const dispatch = useDispatch() 
     const { components } = useSelector(state => state.component)
+    const { notes } = useSelector(state => state.note)
     // const refModal = useRef(null) 
 
     // const handleOpenModal = (e) =>{
@@ -56,8 +57,8 @@ const Components = ({project, handleOpenModal}) =>{
                 ))}
             </div>
             <div className='notes__container-comp'>
-                <button className='notes__toogle-button' onClick={()=>setToggleNotes(!toggleNotes)}>{toggleNotes ? 'Close' : <>Notes ({project.notes?.length})</>}</button>
-                {toggleNotes ? <div><Notes project={project} /></div> : null}
+                <button className='notes__toogle-button' onClick={()=>setToggleNotes(!toggleNotes)}>{toggleNotes ? 'Close' : <>Notes ({notes?.length})</>}</button>
+                {toggleNotes ? <div><Notes handleOpenModal={handleOpenModal} project={project} /></div> : null}
             </div>
 
             

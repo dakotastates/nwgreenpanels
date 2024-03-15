@@ -329,7 +329,7 @@ export const deleteComponent = (id) => async dispatch => {
 }
 
 export const updateComponent = (component) => async dispatch => { 
-  console.log(component)
+  // console.log(component)
   const configObj = {
     method: "PATCH",
     headers: {

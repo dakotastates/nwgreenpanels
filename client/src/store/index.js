@@ -5,6 +5,7 @@ import component from './component'
 import cart from './cart'
 import project from './project'
 import part from './part'
+import note from './note'
 
 
 
@@ -13,7 +14,8 @@ const reducer = combineReducers({
     component,
     cart,
     project, 
-    part
+    part,
+    note
 
 })
 const store = configureStore({

@@ -45,7 +45,7 @@
   width: 100%;
   flex: .7;
   /* height: 100%; */
-  /* overflow: auto;  */
+  overflow: auto; 
 }
 
 .right__container{
@@ -58,6 +58,9 @@
  border-left: 2px double grey;
  padding: 10px;
  flex: .3;
+ /* resize: both; */
+ /* overflow: auto; */
+ height: 100%;
  /* height: inherit%; */
  /* height: calc(100% - 56px); */
 

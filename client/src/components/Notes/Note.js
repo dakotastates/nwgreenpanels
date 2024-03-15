@@ -1,20 +1,25 @@
+import {deleteNote} from '../../store/note'
+import {useDispatch} from 'react-redux'
 
-const Note = ({note})=>{
+const Note = ({note, project, setSelectedNote, handleOpenModal})=>{
+
+    const dispatch = useDispatch() 
+
     const handleDelete = () =>{
-        console.log('delete', note.id)
+        // console.log('delete', note.id)
+        dispatch((deleteNote(note.id)))
     }
 
-    const handleEdit = () =>{
-        console.log('edit', note.id)
+    const handleClick = () =>{
+        setSelectedNote(note)
     }
 
     return (
-        <div className='note__container'>
-            <div className='note'>{note.note}</div>
-            <div>{note.updated_at}</div>
+        <div className='note__container' onClick={handleClick}>
+            <div className='note'>{note.title}</div>
             <div className='note__buttons'>
-                <button onClick={handleEdit}>Edit</button>
-                <button onClick={handleDelete}>X</button>
+                <div onClick={() =>handleOpenModal('edit-note', note)}>Edit</div>
+                <div onClick={handleDelete}>X</div>
             </div>
         </div>
     )
