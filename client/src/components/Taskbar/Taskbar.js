@@ -1,11 +1,14 @@
+import {useState} from 'react'
 import { useParams, useNavigate  } from 'react-router-dom';
 import {useDispatch} from 'react-redux'
 import {deleteProject} from '../../store/project'
 
 import './Taskbar.css'
+import Search from '../Components/Search';
 
 
-const Taskbar = ({project, handleOpenModal})=>{
+const Taskbar = ({project, handleOpenModal, components, setFilteredComponents})=>{
+    // const [filteredComponents, setFilteredComponents] = useState([]);
     const navigate = useNavigate();
     const dispatch = useDispatch() 
 
@@ -13,6 +16,10 @@ const Taskbar = ({project, handleOpenModal})=>{
         dispatch((deleteProject(project.id)))
     }
 
+    const handleSearch = (filteredComponents) => {
+        setFilteredComponents(filteredComponents);
+    };
+    
     return(
         <div className="taskbar__container">
             <div className='taskbar__icons'>
@@ -22,7 +29,7 @@ const Taskbar = ({project, handleOpenModal})=>{
                 <div className='taskbar__icon' onClick={handleDelete}>Delete</div> 
             </div>
             <div>{project?.title}</div>
-            <div className='searchbar__container'><input className='searchbar' placeholder='Search' /></div>
+            <Search components={components} onSearch={handleSearch} />
         </div>
     )
 }

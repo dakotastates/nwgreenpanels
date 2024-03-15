@@ -356,3 +356,14 @@
   outline: 1px dotted #000;
   outline: -webkit-focus-ring-color auto 5px;
 }
+
+.searchbar__container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchbar{
+  border-radius: 5px;
+  height: 20px;
+}

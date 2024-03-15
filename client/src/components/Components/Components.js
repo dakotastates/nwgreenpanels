@@ -11,13 +11,14 @@ import Notes from '../Notes/Notes';
 const Components = ({project, handleOpenModal}) =>{
     // const [toggleModal, setToggleModal] = useState(true)
     // const [modalTarget, setModalTarget] = useState(null)
+    const { components } = useSelector(state => state.component)
+    const [filteredComponents, setFilteredComponents] = useState([]);
     const [toggleNotes, setToggleNotes] = useState(false)
 
     const dispatch = useDispatch() 
-    const { components } = useSelector(state => state.component)
+    
     const { notes } = useSelector(state => state.note)
     // const refModal = useRef(null) 
-
     // const handleOpenModal = (e) =>{
     //     setModalTarget(e.target.id)
     //     setToggleModal(!toggleModal)
@@ -48,9 +49,9 @@ const Components = ({project, handleOpenModal}) =>{
 
     return(
         <div className='components__container'> 
-            <Taskbar project={project} handleOpenModal={handleOpenModal} />
+            <Taskbar components={components} setFilteredComponents={setFilteredComponents} project={project} handleOpenModal={handleOpenModal} />
             <div className='component__container'> 
-                {components.map((component) =>(
+                {filteredComponents.map((component) =>(
                     <div className='component' key={component.id}>
                         <Component component={component} handleOpenModal={handleOpenModal} />
                     </div>
