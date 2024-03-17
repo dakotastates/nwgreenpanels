@@ -29,7 +29,7 @@ const ProjectPage = ({handleOpenModal}) =>{
             <Components project={project} handleOpenModal={handleOpenModal} />
         </div>
         <div className='right__container'>
-            <Cart id={params.id} />
+            <Cart id={params.id} handleOpenModal={handleOpenModal} />
         </div>
     </div>
     )

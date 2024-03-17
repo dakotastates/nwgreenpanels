@@ -96,11 +96,15 @@ const NewComponent = ({handleOpenModal, data}) =>{
         setFormValues(newFormValues)
     }
   
+    // console.log(data.id)
     
     let label
     if(data){
-        label = 'Edit '
-        
+        if (data && !data.id){
+            label = 'Copy'
+        } else {
+            label = 'Edit '
+        }
     } else{
         label = 'Create '
     }

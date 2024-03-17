@@ -2,7 +2,7 @@ import {useDispatch} from 'react-redux'
 import {removeComponentFromCart, addComponentToCart, decrementComponentsInCart, addToCart, addCutToCart, updateCutInCart, removeCutFromCart} from '../../store/cart'
 import {countComponent} from '../../store/component'
 
-const PartsList = ({partsList}) =>{
+const PartsList = ({partsList, preview}) =>{
     const dispatch = useDispatch() 
     // console.log(partsList)
     // var count = partsList.reduce((cnt, cur) => (cnt[cur.id] = cnt[cur.id] + 1 || 1, cnt), {});
@@ -80,16 +80,25 @@ const PartsList = ({partsList}) =>{
     return(
         <div className='cart__parts-list'>
             <div className='cart__list-label'>Parts List</div>
-            {partsList.filter((part) => !part._destroy).map((part, index)=>(
-                <div className='cart__list-items'>
-                    <div>{part.quantity}@</div>
-                    <div>{part.component.name}</div>
-                    <div className='cart__list-buttons'>
-                        {part.quantity > 1 ? <button value='-' onClick={(e)=> handleClick(part, e)}>-</button> : <button onClick={() =>handleDelete(part)}>X</button>}
-                        <button value='+' onClick={(e)=> handleClick(part, e)}>+</button>
+            <div className='cart__parts-list-container'>
+                {partsList.filter((part) => !part._destroy).map((part, index)=>(
+                    <div className={preview? 'cart__list-items preview' : 'cart__list-items'}>
+                        <div className='cart__list-item-quantity'>{part.quantity}@</div>
+                        <div className='cart__list-item-component'>{part.component.name}</div>
+                        
+                        <div className='list__spacer'>
+                            {!preview ? 
+                                <div className='cart__list-buttons'>
+                                    {part.quantity > 1 ? <button value='-' onClick={(e)=> handleClick(part, e)}>-</button> : <button onClick={() =>handleDelete(part)}>X</button>}
+                                    <button value='+' onClick={(e)=> handleClick(part, e)}>+</button>
+                                </div>   
+                                : null   
+                            }
+                        </div>
+
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
 
         </div>
     )
