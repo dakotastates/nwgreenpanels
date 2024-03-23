@@ -11,13 +11,16 @@ class Api::V1::ProjectsController < ApplicationController
 
     def show 
         if Project.exists?(params[:id])
+            # render json: @project.as_json(methods: :image_url), status: 200 
             render json: @project, status: 200 
+
         else 
             render json: {notice: 'Project does not exist' }
         end
     end 
 
     def create 
+        # binding.break
         @project = @current_user.projects.new(project_params)
         if @project.save 
             render json: @project, status: 201
@@ -47,7 +50,7 @@ class Api::V1::ProjectsController < ApplicationController
     private 
 
     def project_params 
-        params.require(:project).permit(:id, :title, :description, :uuid, 
+        params.require(:project).permit(:id, :title, :description, :uuid,
             cut_lists_attributes: [:id, :quantity, :dimension_id, :part_id, :_destroy],
             part_lists_attributes: [:id, :quantity, :component_id, :_destroy]
         )

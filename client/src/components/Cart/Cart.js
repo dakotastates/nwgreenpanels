@@ -1,7 +1,7 @@
 import {useEffect, useState, useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {saveProject} from '../../store/project'
-import {addComponentToCart, addCutToCart, setCart} from '../../store/cart'
+import {addComponentToCart, addCutToCart, setCart, clearCart} from '../../store/cart'
 import {countComponent} from '../../store/component'
 import './Cart.css'
 import PartsList from './PartsList'
@@ -64,6 +64,11 @@ const Cart = ({id, handleOpenModal}) =>{
         })
     }
 
+    const handleClear = e =>{
+        e.preventDefault()
+        dispatch((clearCart()))
+    }
+
     const handlePreview = e =>{
         // html2canvas(componentRef.current).then((canvas) => {
         //     const imgData = canvas.toDataURL('image/png');
@@ -94,7 +99,7 @@ const Cart = ({id, handleOpenModal}) =>{
                 <div className='cart__bottom-buttons'>
                     <button onClick={handlePreview}>Preview</button>
                     <button onClick={handleSave}>Save</button>
-                    <button>Clear</button>
+                    <button onClick={handleClear}>Clear</button>
                 </div>
                 <div className='cart__bottom-notifs'>{notifs}</div>
             </div>

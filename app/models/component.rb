@@ -7,6 +7,7 @@ class Component < ApplicationRecord
     has_many :component_parts, :dependent => :destroy
     has_many :parts, through: :component_parts
     has_many :dimensions, through: :component_parts
+    # has_one_attached :image
 
     accepts_nested_attributes_for :component_parts, allow_destroy: true
     # accepts_nested_attributes_for :component_parts, :parts, :dimensions

@@ -157,6 +157,12 @@ const slice = createSlice({
       // state.cutList = cuts
     }, 
 
+    clearCartSuccess: (state, action) => {
+    //  console.log(action.payload)
+     state.cutList = []
+     state.partsList = []
+    }, 
+
 
 
   },
@@ -164,7 +170,7 @@ const slice = createSlice({
 export default slice.reducer 
 
 // Actions
-const { getCartSuccess, addToCartSuccess, addComponentToCartSuccess, decrementComponentsInCartSuccess, addCutToCartSuccess, removeComponentFromCartSuccess, setCartSuccess, updateCutinCartSuccess, removeCutFromCartSuccess } = slice.actions
+const { getCartSuccess, addToCartSuccess, addComponentToCartSuccess, decrementComponentsInCartSuccess, addCutToCartSuccess, removeComponentFromCartSuccess, setCartSuccess, updateCutinCartSuccess, removeCutFromCartSuccess, clearCartSuccess } = slice.actions
 
 export const getCart = () => async dispatch => {
   try {
@@ -258,6 +264,28 @@ export const setCart = (id) => async dispatch => {
       throw new Error(json.error + " " + json.message);
     }
     dispatch(setCartSuccess(json));
+  } catch (e) {
+    return console.error(e.message);
+  }
+}
+
+export const clearCart = (id) => async dispatch => {
+  // debugger
+  // console.log(list)
+  // const configObj = {
+  //   method: "GET",
+  //   headers: {
+  //     Authorization: `Bearer ${localStorage.token}`,
+  //   },
+  // };
+
+  try {
+    // const res = await fetch(`http://localhost:3000/api/v1/projects/${id}`, configObj);    const json = await res.json();
+    // if (json.error) {
+    //   // debugger
+    //   throw new Error(json.error + " " + json.message);
+    // }
+    dispatch(clearCartSuccess());
   } catch (e) {
     return console.error(e.message);
   }

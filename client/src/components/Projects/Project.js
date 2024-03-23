@@ -15,6 +15,7 @@ const Project = ({project, handleOpenModal}) =>{
         dispatch((deleteProject(project.id)))
     }
 
+    // debugger
     return(
         <div className='project__container'>
             <div className='project' onClick={handleClick}>{project.title}</div>

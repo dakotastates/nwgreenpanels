@@ -9,6 +9,7 @@ const NewComponent = ({handleOpenModal, data}) =>{
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [imageUrl, setImageUrl] = useState('')
+    const [image, setImage] = useState(null);
     const [componentNumber, setComponentNumber] = useState('')
     const [formValues, setFormValues] = useState([{id: null, quantity: "", dimension_attributes: {dimension: ""}, part_attributes: {name: ""} }])
 
