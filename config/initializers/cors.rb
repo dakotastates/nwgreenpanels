@@ -8,14 +8,11 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
     allow do
       # origins "*"
-      if Rails.env.development?
-        origins 'localhost:3000', 'localhost:3001', 'https://nwgreenpanels-98cee.web.app/'
-      else
-        origins 'https://nwgreenpanels-98cee.web.app/'
-      end
-  
+      origins 'localhost:3000', 'localhost:3001', 'https://nwgreenpanels-98cee.web.app/'
+      
       resource "*",
         headers: :any,
         methods: [:get, :post, :put, :patch, :delete, :options, :head]
+        credentials: true
     end
   end
