@@ -12,8 +12,8 @@
 }
 
 .project__buttons{
-    /* background-color: pink; */
-    width: 20%;
+    background-color: pink;
+    /* width: 20%; */
     display: flex;
     justify-content: space-around;
 }

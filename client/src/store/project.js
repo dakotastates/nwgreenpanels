@@ -131,6 +131,7 @@ const slice = createSlice({
     },
 
     createProjectSuccess: (state, action) => {
+      console.log(action.payload)
         state.projects = [...state.projects, action.payload] 
     },
 
@@ -245,24 +246,25 @@ export const getProject = (id) => async dispatch => {
 
 export const createProject = (project) => async dispatch => {
   // console.log(project)
+  // console.log(project)
             // for (var key of project.entries()) {
             //     console.log(key[0] + ', ' + key[1]);
             // }
   const configObj = {
     method: "POST",
     headers: {
-      // "Content-Type": "application/json",
-      // 'Content-Type': 'multipart/form-data',
-      // Accept: "application/json",
+      "Content-Type": "application/json",
+      Accept: "application/json",
       Authorization: `Bearer ${localStorage.token}`,
     },
-    // body: JSON.stringify({project}),
-    body: project,
+    body: JSON.stringify({project}),
+    // body: project,
     
   };
     try {
       const res = await fetch("http://localhost:3000/api/v1/projects", configObj);
       const json = await res.json();
+      console.log(json)
       dispatch(createProjectSuccess(json));
     } catch (e) {
       return console.error(e.message);

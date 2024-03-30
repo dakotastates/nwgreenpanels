@@ -24,7 +24,7 @@ const ProjectsPage = ({handleOpenModal}) =>{
     },[])
 
     const handleSearch = (filteredProjects) => {
-        console.log(filteredProjects)
+        // console.log(filteredProjects)
         setFilteredProjects(filteredProjects);
     };
     // console.log('filtered', filteredProjects)

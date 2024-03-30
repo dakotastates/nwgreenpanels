@@ -19,8 +19,9 @@ const Project = ({project, handleOpenModal}) =>{
     return(
         <div className='project__container'>
             <div className='project' onClick={handleClick}>{project.title}</div>
-            <div className='project__buttons'>
+            <div className='project__buttons'> 
                 <button onClick={()=>handleOpenModal('edit-project', project)}>Edit</button>
+                
                 <button onClick={handleDelete}>Delete</button>
             </div>
         </div>

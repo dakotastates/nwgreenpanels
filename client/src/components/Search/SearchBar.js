@@ -8,7 +8,7 @@ const SearchBar = ({ projects, onSearch }) =>{
         if(searchTerm == ''){
             onSearch(projects)
         }
-    },[])
+    },[projects])
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);

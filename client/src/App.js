@@ -69,11 +69,15 @@ function App() {
           </div>
       </div>
       : 
-      <div className='app__auth-page'>
-        <Routes>
-          <Route path='/' element={<><AuthPage /></>} />
-          <Route path="*" element={<><NotFound/></>}/>
-        </Routes>
+      <div className='App'>
+        <div className='app__auth-main-container'>
+          <div className="main__content">
+            <Routes>
+              <Route path='/' element={<><AuthPage /></>} />
+              <Route path="*" element={<><NotFound/></>}/>
+            </Routes>
+          </div>
+        </div>
       </div>
     }
     </Router>

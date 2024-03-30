@@ -4,7 +4,7 @@ class Api::V1::ProjectsController < ApplicationController
 
     def index 
         
-        @projects = Project.all 
+        @projects = @current_user.projects.all
         
         render json: @projects, status: 200
     end 
