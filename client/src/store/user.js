@@ -11,6 +11,7 @@ let API
 if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
   // dev code
   API = process.env.REACT_APP_API_KEY_DEV
+  // API = process.env.REACT_APP_API_KEY_PROD
 } else {
     // production code
   API = process.env.REACT_APP_API_KEY_PROD
@@ -76,7 +77,8 @@ export const createUser = (user) => async dispatch => {
 
     dispatch(createUserSuccess(json));
   } catch (e) {
-    return console.error(e.message);
+    // return console.error(e.message);
+    dispatch(loginError(e.message));
   }
 }
 export const getUser = () => async dispatch => {
@@ -100,10 +102,11 @@ export const updateUser = (data) => async dispatch => {
 
 export const login = (user) => async dispatch => {
   const configObj ={
-    method: 'POST', 
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Accept: "application/json",
+      Authorization: `Bearer ${localStorage.token}`,
     },
     body: JSON.stringify({user}),
   } 

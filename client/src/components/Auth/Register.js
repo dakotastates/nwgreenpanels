@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {createUser} from '../../store/user'
 
 const Register = props =>{
-    const [error, setError] = useState(null)
+    // const [error, setError] = useState(null)
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [firstName, setFirstName] = useState('')
@@ -12,14 +12,15 @@ const Register = props =>{
     const [confirmPassword, setConfirmPassword] = useState('')
 
     const dispatch = useDispatch() 
+    const { error } = useSelector(state => state.user)
 
     const handleSubmit = e =>{
         e.preventDefault()
 
         if (password !== confirmPassword){
-            setError('Password does not match')
+            // setError('Password does not match')
         } else{
-            setError('')
+            // setError('')
             const userObj = {
                 email: email, 
                 password: password, 
