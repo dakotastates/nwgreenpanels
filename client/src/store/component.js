@@ -191,7 +191,20 @@ const data = [
     
   ]
 },
+
 ]
+
+let API
+// console.log('vars', process.env.REACT_APP_API_KEY_DEV)
+if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+  // dev code
+  API = process.env.REACT_APP_API_KEY_DEV
+  // API = process.env.REACT_APP_API_KEY_PROD
+} else {
+    // production code
+  API = process.env.REACT_APP_API_KEY_PROD
+  console.log('PROD', process.env.NODE_ENV)
+}
 
 
 
@@ -295,7 +308,7 @@ export const createComponent = (component) => async dispatch => {
   };
   try {
     // debugger
-    const res = await fetch("http://localhost:3000/api/v1/components", configObj);
+    const res = await fetch(`${API}/components`, configObj);
     const json = await res.json();
     // console.log(json)
     if (json.error) {
@@ -319,7 +332,7 @@ export const deleteComponent = (id) => async dispatch => {
   };
   try {
 
-    const res = await fetch(`http://localhost:3000/api/v1/components/${id}`, configObj);
+    const res = await fetch(`${API}/components/${id}`, configObj);
     const json = await res.json();
     
     return dispatch(deleteComponentSuccess(json.component.id))
@@ -341,7 +354,7 @@ export const updateComponent = (component) => async dispatch => {
   };
   
   try {
-    const res = await fetch(`http://localhost:3000/api/v1/components/${component.id}`, configObj);
+    const res = await fetch(`${API}/components/${component.id}`, configObj);
     const json = await res.json();
     
     if (json.error) {

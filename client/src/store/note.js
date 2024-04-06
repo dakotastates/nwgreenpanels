@@ -1,5 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit' 
 
+let API
+// console.log('vars', process.env.REACT_APP_API_KEY_DEV)
+if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+  // dev code
+  API = process.env.REACT_APP_API_KEY_DEV
+  // API = process.env.REACT_APP_API_KEY_PROD
+} else {
+    // production code
+  API = process.env.REACT_APP_API_KEY_PROD
+  console.log('PROD', process.env.NODE_ENV)
+}
+
 // Slice
 const slice = createSlice({
   name: 'note',
@@ -65,7 +77,7 @@ export const createNote = (note) => async dispatch => {
   };
 
   try {
-    const res = await fetch("http://localhost:3000/api/v1/notes", configObj);
+    const res = await fetch(`${API}/notes`, configObj);
     const json = await res.json();
     if (json.error) {
       throw new Error(json.error + " " + json.message);
@@ -88,7 +100,7 @@ export const updateNote = (note) => async dispatch => {
   };
 
   try {
-    const res = await fetch(`http://localhost:3000/api/v1/notes/${note.id}`, configObj);
+    const res = await fetch(`${API}/notes/${note.id}`, configObj);
     const json = await res.json();
     
     if (json.error) {
@@ -113,7 +125,7 @@ export const deleteNote = (id) => async dispatch => {
   };
   try {
 
-    const res = await fetch(`http://localhost:3000/api/v1/notes/${id}`, configObj);
+    const res = await fetch(`${API}/notes/${id}`, configObj);
     const json = await res.json();
     
     return dispatch(deleteNoteSuccess(json.note.id)) 

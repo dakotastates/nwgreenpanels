@@ -107,6 +107,18 @@ const projectData = [
 
 ]
 
+let API
+// console.log('vars', process.env.REACT_APP_API_KEY_DEV)
+if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+  // dev code
+  API = process.env.REACT_APP_API_KEY_DEV
+  // API = process.env.REACT_APP_API_KEY_PROD
+} else {
+    // production code
+  API = process.env.REACT_APP_API_KEY_PROD
+  console.log('PROD', process.env.NODE_ENV)
+}
+
 // Slice
 const slice = createSlice({
   name: 'project',
@@ -184,7 +196,7 @@ export const getProjects = () => async dispatch => {
   };
 
   try {
-    const res = await fetch("http://localhost:3000/api/v1/projects", configObj);
+    const res = await fetch(`${API}/projects`, configObj);
     const json = await res.json();
     if (json.error) {
       // debugger
@@ -206,7 +218,7 @@ export const getProject = (id) => async dispatch => {
   };
 
     try {
-      const res = await fetch(`http://localhost:3000/api/v1/projects/${id}`, configObj);
+      const res = await fetch(`${API}/projects/${id}`, configObj);
       const json = await res.json();
       if (json.error) {
         
@@ -231,7 +243,7 @@ export const getProject = (id) => async dispatch => {
     };
 
     try {
-      const res = await fetch(`http://localhost:3000/api/v1/projects/${project.id}`, configObj);
+      const res = await fetch(`${API}/projects/${project.id}`, configObj);
       const json = await res.json();
       // console.log(json)
       if (json.error) {
@@ -262,7 +274,7 @@ export const createProject = (project) => async dispatch => {
     
   };
     try {
-      const res = await fetch("http://localhost:3000/api/v1/projects", configObj);
+      const res = await fetch(`${API}/projects`, configObj);
       const json = await res.json();
       console.log(json)
       dispatch(createProjectSuccess(json));
@@ -281,7 +293,7 @@ export const deleteProject = (id) => async dispatch => {
     },
   };
     try {
-      const res = await fetch(`http://localhost:3000/api/v1/projects/${id}`, configObj);
+      const res = await fetch(`${API}/projects/${id}`, configObj);
       const json = await res.json();
       dispatch(deleteProjectSuccess(json.project.id));
     } catch (e) {
@@ -302,7 +314,7 @@ export const updateProject = (project) => async dispatch => {
   };
   
   try {
-    const res = await fetch(`http://localhost:3000/api/v1/projects/${project.id}`, configObj);
+    const res = await fetch(`${API}/projects/${project.id}`, configObj);
     const json = await res.json();
     // debugger
     if (json.error) {
